@@ -1,5 +1,13 @@
 version: "3.4"
 services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/dashboard.Dockerfile
+    ports:
+      - "3003:3003"
+    depends_on:
+      - subscriber
   publisher:
     build:
       context: .
@@ -16,6 +24,7 @@ services:
       - "3001:3001"
     depends_on:
       - redis
+      - publisher
   redis:
     image: redis
     ports:

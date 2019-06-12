@@ -2,7 +2,7 @@ const redis = require('redis');
 const config = require('./config');
 const { createClient } = require('./redis-utils');
 
-const sub = createClient();
+const sub = createClient(redis);
 sub.on("error", function (err) {
     console.log("Error " + err);
 });
@@ -23,7 +23,7 @@ sub.on("subscribe", function (channel, count) {
 sub.on("message", function (channel, message) {
     console.log("sub channel " + channel + ": " + message);
     msg_count += 1;
-    
+
 });
 
 sub.subscribe(config.redis.channel);

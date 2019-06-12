@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = config.publisher.port
 
-const pub = createClient();
+const pub = createClient(redis);
 pub.on("error", function (err) {
     console.log("Error " + err);
 });

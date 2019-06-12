@@ -7,4 +7,10 @@ module.exports = {
     publisher: {
         port: 3000,
     },
+    subscriber: {
+        port: 3001,
+    },
+    dashboard: {
+        port: 3003,
+    },
 };
