@@ -4,4 +4,7 @@ module.exports = {
         post: 3002,
         channel: 'analytics-events',
     },
+    publisher: {
+        port: 3000,
+    },
 };

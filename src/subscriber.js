@@ -23,9 +23,7 @@ sub.on("subscribe", function (channel, count) {
 sub.on("message", function (channel, message) {
     console.log("sub channel " + channel + ": " + message);
     msg_count += 1;
-    if (msg_count === 3) {
-        shutdown();
-    }
+    
 });
 
 sub.subscribe(config.redis.channel);
