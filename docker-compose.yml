@@ -1,0 +1,22 @@
+version: "3.4"
+services:
+  publisher:
+    build:
+      context: .
+      dockerfile: docker/publisher.Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+  subscriber:
+    build:
+      context: .
+      dockerfile: docker/subscriber.Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    ports:
+      - "3002:3002"

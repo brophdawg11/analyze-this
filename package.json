@@ -1,0 +1,12 @@
+{
+  "name": "analyze-this",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "docker": "docker-compose build && docker-compose up",
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "redis": "2.8.0"
+  }
+}
