@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
     console.log('socket.io connection made')
     sub.on('message', (channel, message) => {
         const parsed = JSON.parse(message)
-        if (parsed.type === 'add-to-cart') {
+        if (parsed.type === 'rec-tray-click') {
             console.log('Received subscription message, sending to client:', parsed);
             socket.emit(config.dy.socketEvent, parsed);
         } else {
