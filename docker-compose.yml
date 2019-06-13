@@ -24,14 +24,47 @@ services:
         depends_on:
             - publisher
 
-    subscriber-dashboard:
+    subscriber-all:
         build:
           context: .
           dockerfile: docker/subscriber.Dockerfile
         ports:
             - "3002:3002"
         environment:
-            - SUBSCRIBER=dashboard
+            - SUBSCRIBER=all
+        depends_on:
+            - publisher
+
+    subscriber-dy:
+        build:
+          context: .
+          dockerfile: docker/subscriber.Dockerfile
+        ports:
+            - "3004:3004"
+        environment:
+            - SUBSCRIBER=dy
+        depends_on:
+            - publisher
+
+    subscriber-sessionm:
+        build:
+          context: .
+          dockerfile: docker/subscriber.Dockerfile
+        ports:
+            - "3005:3005"
+        environment:
+            - SUBSCRIBER=sessionm
+        depends_on:
+            - publisher
+
+    subscriber-sitespect:
+        build:
+          context: .
+          dockerfile: docker/subscriber.Dockerfile
+        ports:
+            - "3006:3006"
+        environment:
+            - SUBSCRIBER=sitespect
         depends_on:
             - publisher
 
@@ -42,5 +75,7 @@ services:
         ports:
             - "3003:3003"
         depends_on:
-            - subscriber-dashboard
-
+            - subscriber-all
+            - subscriber-dy
+            - subscriber-sessionm
+            - subscriber-sitespect

@@ -19,16 +19,21 @@ const app = require('http').createServer((req, res) => {
 const io = socketIo(app);
 
 // Start the server
-const port = config.dashboard.subscriberPort;
+const port = config.sessionm.subscriberPort;
 app.listen(port, () => {
-    console.log(`Dashboard subscriber app listening on http://localhost:${port}...`);
+    console.log(`DY subscriber app listening on http://localhost:${port}...`);
 });
 
 io.on('connection', (socket) => {
     console.log('socket.io connection made')
     sub.on('message', (channel, message) => {
-        console.log('Received subscription message, sending to client:', message);
-        socket.emit(config.dashboard.socketEvent, JSON.parse(message));
+        const parsed = JSON.parse(message)
+        if (parsed.type === 'add-to-cart') {
+            console.log('Received subscription message, sending to client:', parsed);
+            socket.emit(config.sessionm.socketEvent, parsed);
+        } else {
+            console.log('Ignoring subscription message:', parsed);
+        }
     });
     sub.subscribe(config.redis.channel);
 });
