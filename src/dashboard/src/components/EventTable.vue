@@ -80,7 +80,7 @@ export default {
             socket.on('connect_error', (error) => {
                 console.error('Error connecting to socket.io, mocking events instead');
                 socket.close();
-                this.sendMockEvents();
+                //this.sendMockEvents();
             });
 
             socket.on(this.config.socketEvent, (data) => {
