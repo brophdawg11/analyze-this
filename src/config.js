@@ -1,16 +1,15 @@
 module.exports = {
     redis: {
         hostName: 'redis',
-        post: 3002,
+        post: 3001,
         channel: 'analytics-events',
     },
     publisher: {
         port: 3000,
     },
-    subscriber: {
-        port: 3001,
-    },
     dashboard: {
+        subscriberPort: 3002,
         port: 3003,
+        socketEvent: 'analytics-event',
     },
 };
