@@ -41,34 +41,38 @@ export default {
             console.log('Connecting to socket.io server', server);
             const socket = io(server);
 
-            socket.on(config.dashboard.socketEvent, (data) => {
-                console.log('Received event from socket', data);
-                this.addEvent(data);
-            });
+            socket.on('connect', () => console.log('Connected to socket'));
 
             socket.on('connect_error', (error) => {
                 console.error('Error connecting to socket.io, mocking events instead');
                 socket.close();
-
-                const mockEvents = [{
-                    type: 'add-to-cart',
-                    tracer: '12345',
-                    productSlug: 'jacket',
-                }, {
-                    type: 'rec-tray-click',
-                    tracer: '67890',
-                    productSlug: 'pants',
-                }];
-
-                setInterval(() => {
-                    this.addEvent({
-                        type: sample(['add-to-cart', 'rec-tray-click']),
-                        tracer: sample(['12345', '67890']),
-                        productSlug: sample(['pants', 'shirt', 'dress', 'shoes']),
-                        timestamp: new Date().toISOString(),
-                    });
-                }, 3000);
+                this.sendMockEvents();
             });
+
+            socket.on(config.dashboard.socketEvent, (data) => {
+                console.log('Received event from socket', data);
+                this.addEvent(data);
+            });
+        },
+        sendMockEvents() {
+            const mockEvents = [{
+                type: 'add-to-cart',
+                tracer: '12345',
+                productSlug: 'jacket',
+            }, {
+                type: 'rec-tray-click',
+                tracer: '67890',
+                productSlug: 'pants',
+            }];
+
+            setInterval(() => {
+                this.addEvent({
+                    type: sample(['add-to-cart', 'rec-tray-click']),
+                    tracer: sample(['12345', '67890']),
+                    productSlug: sample(['pants', 'shirt', 'dress', 'shoes']),
+                    timestamp: new Date().toISOString(),
+                });
+            }, 3000);
         },
     },
 }

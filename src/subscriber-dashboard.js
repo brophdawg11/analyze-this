@@ -1,10 +1,12 @@
 const redis = require('redis');
 const socketIo = require('socket.io');
 const config = require('./config');
-const { createClient } = require('./redis-utils');
 
 // Create redis subscriber
-const sub = createClient(redis);
+const sub = redis.createClient({
+    host: config.redis.hostName,
+    port: config.redis.port,
+});
 sub.on("error", err => console.log("Error " + err));
 
 // Create HTTP server

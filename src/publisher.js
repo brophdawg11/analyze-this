@@ -2,14 +2,16 @@ const redis = require('redis');
 const express = require('express')
 const bodyParser = require('body-parser')
 const config = require('./config');
-const { createClient } = require('./redis-utils');
 
 // Create express app
 const app = express()
 const port = config.publisher.port
 
 // Create redis publisher client
-const pub = createClient(redis);
+const pub = redis.createClient({
+    host: config.redis.hostName,
+    port: config.redis.port,
+});
 pub.on("error", err => console.log("Error " + err));
 
 // Parse incoming application/json post body payloads to JSON

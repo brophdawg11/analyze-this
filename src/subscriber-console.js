@@ -1,8 +1,10 @@
 const redis = require('redis');
 const config = require('./config');
-const { createClient } = require('./redis-utils');
 
-const sub = createClient(redis);
+const sub = redis.createClient({
+    host: config.redis.hostName,
+    port: config.redis.port,
+});
 
 sub.on("error", err => console.log("Error " + err));
 
