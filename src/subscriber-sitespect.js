@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
     console.log('socket.io connection made')
     sub.on('message', (channel, message) => {
         const parsed = JSON.parse(message)
-        if (parsed.type === 'sku-update') {
+        if (parsed.activity_event_name === 'sku-update') {
             console.log('Received subscription message, sending to client:', parsed);
             socket.emit(config.sitespect.socketEvent, parsed);
         } else {

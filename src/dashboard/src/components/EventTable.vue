@@ -13,7 +13,7 @@
                 <tr :key="item.timestamp" class="row" :class="{ 'new': item.new }">
 
                     <td>{{ item.timestamp }}</td>
-                    <td>{{ item.type }}</td>
+                    <td>{{ item.activity_event_name }}</td>
                     <td>{{ item.tracer }}</td>
                     <td>{{ item.productSlug }}</td>
 
@@ -40,6 +40,10 @@ export default {
             type: Object,
             required: true,
         },
+        dataColumn: {
+            type: Object,
+            required: true
+        }
     },
     data() {
         return {
@@ -48,7 +52,7 @@ export default {
                 value: 'timestamp',
             }, {
                 text: 'Type',
-                value: 'type',
+                value: 'activity_event_name',
             }, {
                 text: 'Tracer',
                 value: 'tracer',
