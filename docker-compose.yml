@@ -1,42 +1,46 @@
 version: "3.4"
 services:
-  dashboard:
-    build:
-      context: .
-      dockerfile: docker/dashboard.Dockerfile
-    ports:
-      - "3003:3003"
-    depends_on:
-      - subscriber-dashboard
-  publisher:
-    build:
-      context: .
-      dockerfile: docker/publisher.Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      - redis
-  subscriber-console:
-    build:
-      context: .
-      dockerfile: docker/subscriber.Dockerfile
-    environment:
-      - SUBSCRIBER=console
-    depends_on:
-      - redis
-      - publisher
-  subscriber-dashboard:
-    build:
-      context: .
-      dockerfile: docker/subscriber.Dockerfile
-    ports:
-      - "3002:3002"
-    environment:
-      - SUBSCRIBER=dashboard
-    depends_on:
-      - redis
-      - publisher
-  redis:
-    image: redis
-    ports:
-      - "3001:3001"
+
+    redis:
+        image: redis
+        ports:
+            - "3001:3001"
+
+    publisher:
+        build:
+            context: .
+            dockerfile: docker/publisher.Dockerfile
+        ports:
+            - "3000:3000"
+        depends_on:
+            - redis
+
+    subscriber-console:
+        build:
+            context: .
+            dockerfile: docker/subscriber.Dockerfile
+        environment:
+            - SUBSCRIBER=console
+        depends_on:
+            - publisher
+
+    subscriber-dashboard:
+        build:
+          context: .
+          dockerfile: docker/subscriber.Dockerfile
+        ports:
+            - "3002:3002"
+        environment:
+            - SUBSCRIBER=dashboard
+        depends_on:
+            - publisher
+
+    dashboard:
+        build:
+            context: .
+            dockerfile: docker/dashboard.Dockerfile
+        ports:
+            - "3003:3003"
+        depends_on:
+            - subscriber-dashboard
+
