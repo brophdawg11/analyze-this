@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "core-js": "2.6.5",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "lodash-es": "4.17.11",
     "socket.io-client": "2.2.0",
     "vue": "2.6.10",
